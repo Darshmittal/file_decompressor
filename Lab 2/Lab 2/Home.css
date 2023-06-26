@@ -1,0 +1,127 @@
+﻿using System;
+using System.Collections.Generic;
+
+class SystemController {
+    private List<Client> clients;
+    private List<Product> products;
+    private List<Plan> plans;
+    private List<BusinessType> businessTypes;
+    private ReportGenerator reportGenerator;
+    public SystemController()
+
+{
+    clients = new List<Client>();
+    products = new List<Product>();
+    plans = new List<Plan>();
+    businessTypes = new List<BusinessType>();
+    reportGenerator = new ReportGenerator();
+}
+
+public void AddNewClient(Client client) {
+    clients .Add(client);
+    Console .WriteLine("New client added successfully.");
+}
+
+public void ManageClientDetails(Client client) {
+    Console .WriteLine("Managing client details...");
+    // Logic to manage client details
+}
+
+public void AddNewProduct(Product product) {
+    products .Add(product);
+    Console .WriteLine("New product added successfully.");
+}
+
+public void UpdateProductInformation(Product product) {
+    var existingProduct = products.Find(p => p.ProductId == product.ProductId);
+    if (existingProduct != null)
+
+{
+    existingProduct .ProductName = product.ProductName;
+    existingProduct .Price = product.Price;
+    existingProduct .Description = product.Description;
+    Console .WriteLine("Product information updated successfully.");
+}
+
+else {
+    Console .WriteLine("Product not found.");
+}
+
+}
+
+public void SetPlans(List<Plan> planList) {
+    plans = planList;
+    Console .WriteLine("Plans set successfully.");
+}
+
+public void SetPricingAndDiscounts(Plan plan, Pricing pricing) {
+    var existingPlan = plans.Find(p => p.PlanId == plan.PlanId);
+    if (existingPlan != null)
+
+{
+    existingPlan .Pricing = pricing;
+    Console .WriteLine("Pricing and discounts set successfully for the plan.");
+}
+
+else {
+    Console .WriteLine("Plan not found.");
+}
+
+}
+
+public void ClassifyBusinesses(List<BusinessType> businessTypeList) {
+    businessTypes = businessTypeList;
+    Console .WriteLine("Businesses classified successfully.");
+}
+
+public void GenerateReports() {
+    foreach (var client in clients)
+
+{
+    reportGenerator .GenerateClientReport(client);
+}
+
+foreach (var product in products) {
+    reportGenerator .GenerateProductReport(product);
+}
+
+foreach (var plan in plans) {
+    reportGenerator .GeneratePlanReport(plan);
+}
+
+}
+}
+
+class Program {
+    static void Main(string[] args)
+
+{
+    var controller = new SystemController();
+    // Sample usage of the actions var client1 = new Client
+
+{
+    ClientId = 1, ClientName = "Client 1"
+}
+
+;
+var product1 = new Product {
+    ProductId = 1, ProductName = "Product 1", Price = 50
+}
+
+;
+var plan1 = new Plan {
+    PlanId = 1, PlanName = "Plan 1"
+}
+
+;
+
+controller.AddNewClient(client1);
+controller.ManageClientDetails(client1);
+controller.AddNewProduct(product1);
+controller.UpdateProductInformation(product1);
+controller.SetPlans(new List<Plan> { plan1 });
+controller.SetPricingAndDiscounts(plan1, new Pricing { PriceId = 1, BasePrice = 100 });
+controller.ClassifyBusinesses(new List<BusinessType> { new BusinessType { TypeId = 1, TypeName = "Type 1" } });
+controller.GenerateReports();
+}
+}
